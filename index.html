@@ -471,12 +471,56 @@ function roleStr() {
   const parts = [fn, st.scope?`(${st.scope})`:""].filter(Boolean).join(" ");
   return st.roleCustom ? `${parts}. ${st.roleCustom}` : parts;
 }
+function genNarrative() {
+  const parts = [];
+
+  if (st.name || st.func || st.scope || st.teamSize) {
+    const who = st.name ? `${st.name}` : "This leader";
+    const role = roleStr();
+    const team = st.teamSize ? ` and leads a team of ${st.teamSize}` : "";
+    parts.push(`${who} works at Omada Health, owns ${role}${team}, and wants this Hub to make the real management work lighter without dulling their judgment.`);
+  }
+
+  const va = mergeList(st.voiceTraits, st.voiceCustom);
+  if (va.length) {
+    parts.push(`Day to day, they tend to sound ${va.join(", ")} rather than polished or corporate, and they expect the Hub to match that.`);
+  }
+
+  const vl = mergeList(st.valuesSelected, st.valuesCustom);
+  if (vl.length) {
+    parts.push(`When decisions get messy, they reliably favor ${vl.join(", ")} instead of easy consensus or vague alignment.`);
+  }
+
+  const fc = mergeList(st.focusSelected, st.focusCustom);
+  if (fc.length) {
+    parts.push(`Most of their leadership time goes into ${fc.join(", ")}, so this Hub should be especially sharp there.`);
+  }
+
+  if (st.stressTone || st.decisionBoundary) {
+    const stress = st.stressTone ? `Under pressure, their tone tilts toward ${st.stressTone.toLowerCase()}` : "";
+    const decisions = st.decisionBoundary ? `and they usually decide ${st.decisionBoundary.toLowerCase()}` : "";
+    parts.push(`${stress}${stress && decisions ? ", " : ""}${decisions}. The Hub should respect those defaults but surface tradeoffs when stakes are high.`);
+  }
+
+  if (st.uniqueTouches.trim()) {
+    parts.push(`Their team would recognize them in how they ${st.uniqueTouches.trim()}. Keep those fingerprints in any language you suggest.`);
+  }
+
+  return parts.join(" ");
+}
 
 function genProfile() {
   let t = "";
+
+  const narrative = genNarrative();
+  if (narrative) {
+    t += narrative + "\n\n";
+  }
+
   t += `You are my personal Leadership Hub for work at Omada Health. I lead ${roleStr()}. Team: ${st.teamSize}.`;
   if (st.reportsTo) t += ` Report to: ${st.reportsTo}.`;
   t += ` Make my management work easier, clearer, faster. Don't replace my judgment. I own every call.\n\n`;
+
 
   t += `OPERATING MODES (I will say which)\n`;
   t += `- Analyst: Patterns, risks, dynamics from what I paste. Output: core issue (1 line), key dynamics (3 bullets), blind spots (2-3 questions).\n`;
