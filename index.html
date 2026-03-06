@@ -717,9 +717,11 @@ function render() {
   let h='';
   if(step>0 && step<STEPS.length-1) {
     const[title,sub]=STEP_TITLES[s]||["",""];
-    const fc=FIELD_COUNTS[s]||0;
-    const done=fieldsDone();
-    h+=`<div class="step-header"><div class="step-title">${title}</div><div class="step-sub">${sub}</div>${fc?`<div class="step-progress">${done} of ${fc} required fields complete</div>`:''}</div>`;
+h+=`<div class="step-header">
+  <div class="step-title">${title}</div>
+  <div class="step-sub">${sub}</div>
+</div>`;
+
   }
   h += renderStep();
   document.getElementById('card').innerHTML=h;
