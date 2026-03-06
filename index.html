@@ -153,12 +153,6 @@
     border-radius: 10px; border: 1px solid #fecaca;
     font-size: 12px; color: #dc2626; font-weight: 600;
   }
-  .toggle-raw {
-    margin-top: 12px; font-size: 12px; font-weight: 600; color: #3b82a0;
-    cursor: pointer; background: none; border: none; font-family: inherit;
-    padding: 6px 0; display: flex; align-items: center; gap: 6px;
-  }
-  .toggle-raw:hover { color: #1a3a5c; }
 
   /* FOOTER */
   .footer {
@@ -261,12 +255,12 @@ const STEP_TITLES = {
   role: ["Your Role", "Define your leadership context"],
   modes: ["Operating Modes", "How you'll use this Space"],
   voice: ["Voice & Style", "How you communicate"],
-  values: ["Values & Constraints", "Your non-negotiables"],
-  focus: ["Focus Areas", "Where this Space excels"],
+  values: ["Values", "Your non-negotiables"],
+  focus: ["Focus Areas", "Where this Space helps most"],
   defaults: ["Personal Defaults", "Your patterns under pressure"],
-  unique: ["Unique Touches", "Optional personalization"],
+  unique: ["Your Full Self", "Optional personalization"],
 };
-const FIELD_COUNTS = { role:3, modes:2, voice:2, values:1, focus:1, defaults:2, unique:0 };
+const FIELD_COUNTS = { role:3, modes:1, voice:2, values:1, focus:1, defaults:2, unique:0 };
 
 const D = {
   FUNCTIONS: [
@@ -296,24 +290,50 @@ const D = {
     {g:"What I protect", items:["Clarity over speed","Evidence over opinion","Integrity over convenience","Psychological safety"]},
     {g:"What I prioritize", items:["Accountability over harmony","People before process","Outcomes over activity","Simplicity over completeness"]},
   ],
-  CONSTRAINTS: ["Never recommend without naming the tradeoff","Never draft language that avoids accountability","Don't assume I want the safe answer","Never use passive voice for ownership","Don't soften feedback unless I ask","Always name who owns the decision","Never give me more than 3 options","Flag when I might be avoiding conflict"],
   FOCUS: [
-    {g:"Conversations", items:["1:1 prep and follow-up","Difficult conversation planning","Skip-level prep","Conflict resolution strategy"]},
-    {g:"Communication", items:["Team communication drafting","Stakeholder update drafting","Change management messaging","Board/exec presentation prep"]},
-    {g:"Operations", items:["Meeting design and agendas","Performance feedback writing","Hiring and interview prep","Delegation planning"]},
-    {g:"Strategy", items:["Decision framing and analysis","Org design thinking","Prioritization and tradeoffs","Team rituals and culture"]},
+    {g:"Where I spend time now", items:[
+      "1:1s and coaching",
+      "Performance conversations",
+      "Team-wide communication",
+      "Cross-functional alignment",
+      "Hiring and interviewing",
+      "Project/initiative tracking"
+    ]},
+    {g:"Where I want the Hub's help", items:[
+      "Turning messy notes into clear plans",
+      "Drafting messages and updates",
+      "Preparing for difficult conversations",
+      "Structuring decisions and tradeoffs",
+      "Designing better meetings and rituals"
+    ]},
+    {g:"Communication", items:[
+      "Team communication drafting",
+      "Stakeholder update drafting",
+      "Change management messaging",
+      "Personal communications and check-ins",
+      "Informal notes and reflections",
+      "FYI / heads-up messages"
+    ]},
+    {g:"Operations", items:[
+      "Meeting design and agendas",
+      "Performance feedback writing",
+      "Hiring and interview prep",
+      "Delegation planning",
+      "Run-of-show and facilitation notes",
+      "Follow-ups and action trackers"
+    ]},
   ],
   STRESS: ["Direct and decisive - cut to action","Calm and measured - slow things down","Analytical - show me data first","Collaborative - think with me"],
   DECISIONS: ["Fast, course-correct later","Sit with it before committing","Fast on tactics, slow on strategy","Fast if reversible, slow if not"],
   CONFLICT: ["Address directly, immediately","Name the pattern, then address","Create space first, then be direct","Written first, verbal follow-up"],
-  TIME: ["Long-term (quarters/years)","Short-term (days/weeks)","Balanced","Long-term frame, short-term execution"],
-  OUTPUT: ["Bullets with headers","Narrative paragraphs","Tables and comparisons","Bullets for action, narrative for context"],
-  ARTIFACTS: [
-    {g:"Messages", items:["Slack threads","Email chains"]},
-    {g:"Documents", items:["1:1 notes","Meeting notes","Strategy docs","Project briefs"]},
-    {g:"Data", items:["Survey data","Performance reviews","Interview feedback","Org charts"]},
+  OUTPUT: [
+    "Bullets with headers",
+    "Narrative paragraphs",
+    "Tables and comparisons",
+    "Bullets for action, narrative for context",
+    "Structured frameworks (e.g., 3 options, pros/cons, risks)",
+    "Scripts with talking points I can say out loud"
   ],
-  END_WITH: ["One question that helps me think, not just move faster","A summary of what I should do next","The biggest risk I might be missing","Nothing - just end cleanly"],
 };
 
 const COACH = {
@@ -321,26 +341,24 @@ const COACH = {
   modes_inline: "You can always override — this just sets the starting gear.",
   voice_inline: "Pick traits that are true, not aspirational.",
   values_inline: "If you wouldn't defend it in a hard conversation, it's a preference, not a value.",
-  focus_inline: "What takes too long? What do you avoid? What would you do more of if it were easier?",
+  focus_inline: "Think in hours per week. If it eats time or energy, name it.",
   defaults_inline: "Not your best self — your real self under pressure.",
-  unique_inline: "Recurring meetings, frameworks, phrases only your team would recognize.",
+  unique_inline: "Rituals, phrases, quirks, and lines you actually use. This is where your full personality goes.",
 };
 
 let step = 0;
-let showRaw = false;
 let showPreview = false;
 
 let st = {
   name:"", func:"", funcCustom:"", scope:"", teamSize:"", reportsTo:"", roleCustom:"",
-  defaultRole:"Advisor", alwaysEndWith:"One question that helps me think, not just move faster",
+  defaultRole:"Advisor",
   voiceTraits:[], voiceCustom:"", lengthPref:"Match the stakes - short for routine, long for complex",
   bannedWords:[], bannedCustom:"",
   valuesSelected:[], valuesCustom:"",
-  constraintsSelected:[], constraintsCustom:"",
   focusSelected:[], focusCustom:"",
-  stressTone:"", decisionBoundary:"", conflictStyle:"", timeHorizonBias:"",
+  stressTone:"", decisionBoundary:"", conflictStyle:"",
   outputFormat:"Bullets for action, narrative for context",
-  sensitivityRules:"", artifactsSelected:[], artifactsCustom:"",
+  sensitivityRules:"",
   uniqueTouches:"",
 };
 
@@ -433,11 +451,6 @@ window.togglePreview = function() {
   render();
 };
 
-window.toggleRaw = function() {
-  showRaw = !showRaw;
-  render();
-};
-
 window.copyProfile = function() {
   saveInputs();
   navigator.clipboard.writeText(genProfile()).then(() => {
@@ -464,27 +477,43 @@ function genProfile() {
   t += `You are my personal Leadership Hub for work at Omada Health. I lead ${roleStr()}. Team: ${st.teamSize}.`;
   if (st.reportsTo) t += ` Report to: ${st.reportsTo}.`;
   t += ` Make my management work easier, clearer, faster. Don't replace my judgment. I own every call.\n\n`;
-  t += `OPERATING MODES (I will say which)\n- Analyst: Patterns, risks, dynamics from what I paste. Output: core issue (1 line), key dynamics (3 bullets), blind spots (2-3 questions).\n- Advisor: Options and tradeoffs. Don't choose for me. Output: options with pros/cons, second-order effects, then questions.\n- Assistant: Draft in my voice (Slack, email, agendas, feedback). Give 2-3 tone variants when asked.\n\n`;
-  t += `DEFAULTS\n- No mode specified = ${st.defaultRole}.\n- Start every response stating your mode.\n- End with: ${st.alwaysEndWith}.\n- Always include copy-paste-ready language.\n\n`;
-  const va=mergeList(st.voiceTraits,st.voiceCustom);
-  t += `VOICE & STYLE\nTraits: ${va.join(", ")}.\nLength: ${st.lengthPref}.\n`;
-  const ba=mergeList(st.bannedWords,st.bannedCustom);
-  if(ba.length) t+=`Banned: ${ba.join(", ")}.\n`;
-  t+=`Tone options when asked: Direct / Supportive / Neutral.\n\n`;
+
+  t += `OPERATING MODES (I will say which)\n`;
+  t += `- Analyst: Patterns, risks, dynamics from what I paste. Output: core issue (1 line), key dynamics (3 bullets), blind spots (2-3 questions).\n`;
+  t += `- Advisor: Options and tradeoffs. Don't choose for me. Output: options with pros/cons, second-order effects, then questions.\n`;
+  t += `- Assistant: Draft in my voice (Slack, email, agendas, feedback). Give 2-3 tone variants when asked.\n\n`;
+
+  t += `DEFAULTS\n`;
+  t += `- No mode specified = ${st.defaultRole}.\n`;
+  t += `- Start every response stating your mode.\n`;
+  t += `- Always include copy-paste-ready language.\n\n`;
+
+  const va = mergeList(st.voiceTraits,st.voiceCustom);
+  t += `VOICE & STYLE\n`;
+  t += `- Traits: ${va.join(", ")}.\n`;
+  t += `- Length preference: ${st.lengthPref}.\n`;
+  const ba = mergeList(st.bannedWords,st.bannedCustom);
+  if(ba.length) t+=`- Banned words/phrases: ${ba.join(", ")}.\n`;
+  t+=`- When tone matters, offer at most three variants: Direct / Supportive / Neutral.\n\n`;
+
   const vl=mergeList(st.valuesSelected,st.valuesCustom);
   t+=`VALUES (non-negotiables)\n${vl.map(x=>`- ${x}`).join("\n")}\n\n`;
-  const cn=mergeList(st.constraintsSelected,st.constraintsCustom);
-  if(cn.length) t+=`CONSTRAINTS\n${cn.map(x=>`- ${x}`).join("\n")}\n\n`;
+
   const fc=mergeList(st.focusSelected,st.focusCustom);
   t+=`FOCUS AREAS\n${fc.map(x=>`- ${x}`).join("\n")}\n\n`;
-  t+=`PERSONAL DEFAULTS\n- Stress tone: ${st.stressTone}\n- Decisions: ${st.decisionBoundary}\n`;
-  if(st.conflictStyle) t+=`- Conflict: ${st.conflictStyle}\n`;
-  if(st.timeHorizonBias) t+=`- Time horizon: ${st.timeHorizonBias}\n`;
-  t+=`- Output format: ${st.outputFormat}\n`;
-  if(st.sensitivityRules.trim()) t+=`- Sensitivity: ${st.sensitivityRules}\n`;
-  const ar=mergeList(st.artifactsSelected,st.artifactsCustom);
-  if(ar.length) t+=`- I'll paste: ${ar.join(", ")}\n`;
-  if(st.uniqueTouches.trim()) t+=`\nUNIQUE TOUCHES\n${st.uniqueTouches}\n`;
+
+  t+=`PERSONAL DEFAULTS\n`;
+  t+=`- Stress tone: ${st.stressTone}\n`;
+  t+=`- Decision style: ${st.decisionBoundary}\n`;
+  if(st.conflictStyle) t+=`- Conflict style: ${st.conflictStyle}\n`;
+  t+=`- Preferred output format: ${st.outputFormat}\n`;
+  if(st.sensitivityRules.trim()) t+=`- Sensitivity rules: ${st.sensitivityRules}\n`;
+
+  if(st.uniqueTouches.trim()) {
+    t+=`\nYOUR FULL SELF\n`;
+    t+=st.uniqueTouches + "\n";
+  }
+
   return t.trim();
 }
 
@@ -580,7 +609,6 @@ function renderStep() {
       <div class="mode-item"><div class="mode-name">Assistant</div><div class="mode-desc">Draft in your voice. Slack, email, agendas, feedback. Copy-paste ready.</div></div>
     </div>
     ${field("Default mode","When you don't specify, which mode?",chips(["Analyst","Advisor","Assistant"],"defaultRole",false,false),true,COACH.modes_inline)}
-    ${field("End every response with","",chips(D.END_WITH,"alwaysEndWith",false,false))}
     ${previewBtn()}`;
 
   if(s==="voice") return `
@@ -592,12 +620,17 @@ function renderStep() {
 
   if(s==="values") return `
     ${field("Leadership values","Your non-negotiables. Pick 2-5.",gchips(D.VALUES,"valuesSelected",true,true)+`<div class="custom-field">${inp("valuesCustom","Add custom values (comma-separated)")}</div>`,true,COACH.values_inline)}
-    ${field("Constraints (hard lines)","Things your Space should never do.",chips(D.CONSTRAINTS,"constraintsSelected",true,true)+`<div class="custom-field">${inp("constraintsCustom","Add custom constraints (comma-separated)")}</div>`)}
     ${!canNext()?valHint(getHint()):''}
     ${previewBtn()}`;
 
   if(s==="focus") return `
-    ${field("Focus areas","Where must this Space be excellent? Pick 2-4.",gchips(D.FOCUS,"focusSelected",true,true)+`<div class="custom-field">${inp("focusCustom","Add custom focus areas (comma-separated)")}</div>`,true,COACH.focus_inline)}
+    ${field(
+      "Focus areas",
+      "Where do you actually spend time, and where should this Space take work off your plate? Pick 3–6.",
+      gchips(D.FOCUS,"focusSelected",true,true)+`<div class="custom-field">${inp("focusCustom","Add custom focus areas (comma-separated)")}</div>`,
+      true,
+      COACH.focus_inline
+    )}
     ${!canNext()?valHint(getHint()):''}
     ${previewBtn()}`;
 
@@ -605,15 +638,24 @@ function renderStep() {
     ${field("Default tone under stress","",chips(D.STRESS,"stressTone",false,false),true,COACH.defaults_inline)}
     ${field("Decision style","",chips(D.DECISIONS,"decisionBoundary",false,false),true)}
     ${field("Conflict style","",chips(D.CONFLICT,"conflictStyle",false,false))}
-    ${field("Time horizon bias","",chips(D.TIME,"timeHorizonBias",false,false))}
     ${field("Output format","",chips(D.OUTPUT,"outputFormat",false,false))}
-    ${field("Content you'll paste in","Select common types.",gchips(D.ARTIFACTS,"artifactsSelected",true,true)+`<div class="custom-field">${inp("artifactsCustom","Add more (comma-separated)")}</div>`)}
     ${field("Sensitivity rules","Topics needing special handling.",inp("sensitivityRules","e.g., Flag legal/HR implications on any performance-related draft"))}
     ${!canNext()?valHint(getHint()):''}
     ${previewBtn()}`;
 
   if(s==="unique") return `
-    ${field("Unique touches","",area("uniqueTouches","e.g.,\\n- Weekly leadership meeting Mondays 10am\\n- I use a 30/60/90 framework\\n- My team calls our retro 'The Reckoning'",5,400),false,COACH.unique_inline)}
+    ${field(
+      "Your full self",
+      "",
+      area(
+        "uniqueTouches",
+        "e.g.,\n- How I open tough conversations\n- Phrases my team would recognize as mine\n- Rituals we use (standup, retro, offsites)\n- Things I never want softened or sanded down",
+        5,
+        400
+      ),
+      false,
+      COACH.unique_inline
+    )}
     ${previewBtn()}`;
 
   if(s==="review") {
@@ -627,9 +669,7 @@ function renderStep() {
     const va=mergeList(st.voiceTraits,st.voiceCustom);
     const ba=mergeList(st.bannedWords,st.bannedCustom);
     const vl=mergeList(st.valuesSelected,st.valuesCustom);
-    const cn=mergeList(st.constraintsSelected,st.constraintsCustom);
     const fc=mergeList(st.focusSelected,st.focusCustom);
-    const ar=mergeList(st.artifactsSelected,st.artifactsCustom);
 
     let h = `<div class="budget">
       <div class="budget-row"><span class="budget-label" style="color:${color}">${label}</span><span class="budget-count" style="color:${color}">${cc.toLocaleString()} / ${CHAR_LIMIT.toLocaleString()}</span></div>
@@ -642,21 +682,18 @@ function renderStep() {
     h += reviewSection("Role",1,`<strong>${esc(roleStr())}</strong> · Team: ${esc(st.teamSize)}${st.reportsTo?' · Reports to: '+esc(st.reportsTo):''}`);
     h += reviewSection("Modes",2,`Default: <span class="tag">${esc(st.defaultRole)}</span>`);
     h += reviewSection("Voice",3, tags(va)+(ba.length?`<div style="margin-top:8px;font-size:11px;color:#9ca3af">Banned: ${esc(ba.join(", "))}</div>`:''));
-    h += reviewSection("Values",4, tags(vl)+(cn.length?`<div style="margin-top:8px;font-size:11px;color:#6b7280">${cn.length} constraint${cn.length>1?'s':''} set</div>`:''));
+    h += reviewSection("Values",4, tags(vl));
     h += reviewSection("Focus",5, tags(fc));
     h += reviewSection("Defaults",6,
       `<span class="tag">${esc(st.stressTone)}</span><span class="tag">${esc(st.decisionBoundary)}</span>`
       +(st.conflictStyle?`<span class="tag">${esc(st.conflictStyle)}</span>`:'')
-      +(st.timeHorizonBias?`<span class="tag">${esc(st.timeHorizonBias)}</span>`:'')
     );
-    if(st.uniqueTouches.trim()) h += reviewSection("Unique Touches",7,`<span style="font-size:12px;color:#6b7280">${esc(st.uniqueTouches).substring(0,100)}${st.uniqueTouches.length>100?'...':''}</span>`);
+    if(st.uniqueTouches.trim()) h += reviewSection("Your full self",7,`<span style="font-size:12px;color:#6b7280">${esc(st.uniqueTouches).substring(0,100)}${st.uniqueTouches.length>100?'...':''}</span>`);
 
-    h += `<button class="toggle-raw" onclick="toggleRaw()">${showRaw?'▾ Hide':'▸ Show'} raw instructions</button>`;
-    if(showRaw) {
-      h += `<div class="output-wrap"><button class="copy-btn" onclick="copyProfile()">Copy to clipboard</button><pre class="output-pre">${esc(profile)}</pre></div>`;
-    } else {
-      h += `<div style="margin-top:8px"><button class="copy-btn" style="position:static;display:inline-flex" onclick="copyProfile()">📋 Copy instructions to clipboard</button></div>`;
-    }
+    h += `<div class="output-wrap">
+      <button class="copy-btn" onclick="copyProfile()">Copy to clipboard</button>
+      <pre class="output-pre">${esc(profile)}</pre>
+    </div>`;
 
     h += `<div class="next-steps"><h4>Next steps</h4><ol>
       <li>Open your Perplexity Space settings</li>
