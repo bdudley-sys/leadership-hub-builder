@@ -563,11 +563,6 @@ function genProfile() {
 
 function canNext() {
   const s=STEPS[step];
-  if(s==="role") return st.name&&(st.func||st.funcCustom)&&st.teamSize;
-  if(s==="voice") return st.voiceTraits.length>=2;
-  if(s==="values") return st.valuesSelected.length>=1;
-  if(s==="focus") return st.focusSelected.length>=1;
-  if(s==="defaults") return st.stressTone&&st.decisionBoundary;
   return true;
 }
 
