@@ -13,7 +13,6 @@
     min-height: 100vh; color: #111827; -webkit-font-smoothing: antialiased;
   }
 
-  /* HEADER */
   .header { padding: 16px 20px 0; max-width: 640px; width: 100%; margin: 0 auto; }
   .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
   .logo { display: flex; align-items: center; gap: 9px; }
@@ -27,7 +26,6 @@
   .progress-track { height: 3px; background: #e5e7eb; border-radius: 100px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, #1a3a5c, #3b82a0); border-radius: 100px; transition: width 0.5s ease; }
 
-  /* LAYOUT */
   .main { max-width: 640px; width: 100%; margin: 14px auto 0; padding: 0 20px 120px; }
   .card {
     background: #fff; border-radius: 18px;
@@ -36,20 +34,16 @@
   }
   @media (max-width: 480px) { .card { padding: 22px 18px; } }
 
-  /* STEP HEADER */
   .step-header { margin-bottom: 22px; }
   .step-title { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 3px; }
   .step-sub { font-size: 13px; color: #9ca3af; }
-  .step-progress { font-size: 11px; color: #b0b7c3; margin-top: 6px; font-weight: 500; }
 
-  /* FIELDS */
   .field { margin-bottom: 24px; }
   .field-label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
   .field-label .req { color: #dc2626; margin-left: 3px; }
   .field-sub { font-size: 12px; color: #6b7280; margin-bottom: 8px; line-height: 1.5; }
   .inline-coach { font-size: 12px; color: #8b7335; margin-bottom: 10px; line-height: 1.5; font-style: italic; }
 
-  /* CHIPS */
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip-group-label {
     width: 100%; font-size: 11px; font-weight: 600; color: #9ca3af;
@@ -72,7 +66,6 @@
     .chip.sm { padding: 9px 13px; font-size: 12px; }
   }
 
-  /* INPUTS */
   input[type="text"], textarea {
     width: 100%; padding: 11px 14px; border-radius: 10px; border: 1.5px solid #d1d5db;
     font-size: 14px; color: #111827; background: #fff; outline: none;
@@ -83,7 +76,6 @@
   .custom-field { margin-top: 8px; }
   .char-count { position: absolute; bottom: 8px; right: 14px; font-size: 11px; color: #9ca3af; }
 
-  /* VALIDATION HINT */
   .val-hint {
     font-size: 12px; color: #d97706; margin-top: 12px; padding: 8px 12px;
     background: #fffbeb; border-radius: 8px; border: 1px solid #fde68a;
@@ -91,15 +83,6 @@
   }
   .val-hint .icon { flex-shrink: 0; }
 
-  /* COACH TIP */
-  .tip {
-    background: #fef9ee; border: 1px solid #f0d9a0; border-radius: 10px;
-    padding: 13px 15px; margin-top: 18px; display: flex; gap: 9px; align-items: flex-start;
-  }
-  .tip-icon { font-size: 15px; flex-shrink: 0; }
-  .tip-text { font-size: 12px; color: #7c5a10; line-height: 1.6; font-style: italic; }
-
-  /* BUDGET */
   .budget { margin-bottom: 18px; }
   .budget-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
   .budget-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -108,7 +91,6 @@
   .budget-fill { height: 100%; border-radius: 100px; transition: all 0.4s; }
   .budget-warn { font-size: 11px; color: #dc2626; margin-top: 5px; font-weight: 500; }
 
-  /* REVIEW */
   .review-section {
     background: #f8f9fb; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
     border: 1px solid #eef0f3; position: relative;
@@ -154,7 +136,6 @@
     font-size: 12px; color: #dc2626; font-weight: 600;
   }
 
-  /* FOOTER */
   .footer {
     position: fixed; bottom: 0; left: 0; right: 0;
     background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
@@ -170,11 +151,9 @@
     padding: 11px 28px; border-radius: 10px; border: none;
     background: linear-gradient(135deg, #1a3a5c, #2d5f8a); color: #fff;
     font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
-    box-shadow: 0 4px 14px rgba(26,58,92,0.2); transition: opacity 0.2s;
+    box-shadow: 0 4px 14px rgba(26,58,92,0.2);
   }
-  .btn-next:disabled { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; box-shadow: none; }
 
-  /* WELCOME */
   .welcome-icon {
     width: 68px; height: 68px; border-radius: 20px;
     background: linear-gradient(135deg, #1a3a5c, #2d5f8a);
@@ -197,14 +176,12 @@
   .welcome-meta-num { font-size: 20px; font-weight: 800; color: #1a3a5c; }
   .welcome-meta-label { font-size: 11px; color: #9ca3af; font-weight: 500; }
 
-  /* MODE BOX */
   .mode-box { background: #f8f9fb; border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; }
   .mode-item { margin-bottom: 10px; }
   .mode-item:last-child { margin-bottom: 0; }
   .mode-name { font-size: 13px; font-weight: 700; color: #1a3a5c; }
   .mode-desc { font-size: 12px; color: #6b7280; margin-top: 1px; line-height: 1.5; }
 
-  /* PREVIEW PANEL */
   .preview-toggle {
     margin-top: 16px; font-size: 12px; font-weight: 600; color: #3b82a0;
     cursor: pointer; background: none; border: none; font-family: inherit;
@@ -250,7 +227,7 @@
 
 <script>
 const CHAR_LIMIT = 5000;
-const STEPS = ["welcome","role","modes","voice","values","focus","defaults","unique","review"];
+const STEPS = ["welcome","role","modes","voice","values","focus","defaults","texture","unique","review"];
 const STEP_TITLES = {
   role: ["Your Role", "Define your leadership context"],
   modes: ["Operating Modes", "How you'll use this Space"],
@@ -258,9 +235,9 @@ const STEP_TITLES = {
   values: ["Values", "Your non-negotiables"],
   focus: ["Focus Areas", "Where this Space helps most"],
   defaults: ["Personal Defaults", "Your patterns under pressure"],
+  texture: ["Texture", "What you rewatch and reach for"],
   unique: ["Your Full Self", "Optional personalization"],
 };
-const FIELD_COUNTS = { role:3, modes:1, voice:2, values:1, focus:1, defaults:2, unique:0 };
 
 const D = {
   FUNCTIONS: [
@@ -343,6 +320,7 @@ const COACH = {
   values_inline: "If you wouldn't defend it in a hard conversation, it's a preference, not a value.",
   focus_inline: "Think in hours per week. If it eats time or energy, name it.",
   defaults_inline: "Not your best self — your real self under pressure.",
+  texture_inline: "Think about what you rewatch or return to when you want to think, not just turn off.",
   unique_inline: "Rituals, phrases, quirks, and lines you actually use. This is where your full personality goes.",
 };
 
@@ -359,6 +337,8 @@ let st = {
   stressTone:"", decisionBoundary:"", conflictStyle:"",
   outputFormat:"Bullets for action, narrative for context",
   sensitivityRules:"",
+  // texture
+  favShows:"", favBooks:"", offDutyHabits:"", teamPhrases:"",
   uniqueTouches:"",
 };
 
@@ -367,12 +347,11 @@ function safe(s) { return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 
 function saveInputs() {
   document.querySelectorAll('input[type="text"][oninput],textarea[oninput]').forEach(el => {
-    const m = el.getAttribute('oninput').match(/upd\('(\w+)'/);
+    const m = el.getAttribute('oninput').match(/upd\\('(\\w+)'/);
     if (m) st[m[1]] = el.value;
   });
 }
 
-// Grouped chips
 function gchips(groups, key, multi, small) {
   let h = '<div class="chips">';
   groups.forEach(g => {
@@ -387,7 +366,6 @@ function gchips(groups, key, multi, small) {
   return h;
 }
 
-// Flat chips
 function chips(opts, key, multi, small) {
   const sel = multi ? (st[key]||[]) : [st[key]];
   return `<div class="chips">${opts.map(o => {
@@ -405,12 +383,12 @@ function field(label, sub, content, req, coach) {
   </div>`;
 }
 
-function inp(key, ph) { return `<input type="text" value="${esc(st[key])}" oninput="upd('${key}',this.value)" placeholder="${esc(ph)}">`; }
+function inp(key, ph) {
+  return `<input type="text" value="${esc(st[key])}" oninput="upd('${key}',this.value)" placeholder="${esc(ph)}">`;
+}
 function area(key, ph, rows, max) {
   return `<div style="position:relative"><textarea rows="${rows}" ${max?`maxlength="${max}"`:''} oninput="upd('${key}',this.value)" placeholder="${esc(ph)}">${esc(st[key])}</textarea>${max?`<span class="char-count">${(st[key]||'').length}/${max}</span>`:''}</div>`;
 }
-
-function valHint(msg) { return `<div class="val-hint"><span class="icon">☝️</span> ${esc(msg)}</div>`; }
 
 function previewBtn() {
   return `<button class="preview-toggle" onclick="togglePreview()">${showPreview?'▾ Hide':'▸ Peek at'} your profile so far</button>${showPreview?`<div class="preview-panel">${esc(genProfile())}</div>`:''}`;
@@ -419,14 +397,17 @@ function previewBtn() {
 window.toggle = function(key, val, multi) {
   saveInputs();
   val = val.replace(/&quot;/g,'"').replace(/&amp;/g,'&');
-  if (multi) { const a=st[key]||[]; st[key]=a.includes(val)?a.filter(x=>x!==val):[...a,val]; }
-  else { st[key]=st[key]===val?"":val; }
+  if (multi) {
+    const a=st[key]||[];
+    st[key]=a.includes(val)?a.filter(x=>x!==val):[...a,val];
+  } else {
+    st[key]=st[key]===val?"":val;
+  }
   render();
 };
 
 window.upd = function(key, val) {
   st[key] = val;
-  updateNav();
 };
 
 window.nav = function(dir) {
@@ -471,6 +452,7 @@ function roleStr() {
   const parts = [fn, st.scope?`(${st.scope})`:""].filter(Boolean).join(" ");
   return st.roleCustom ? `${parts}. ${st.roleCustom}` : parts;
 }
+
 function genNarrative() {
   const parts = [];
 
@@ -499,11 +481,27 @@ function genNarrative() {
   if (st.stressTone || st.decisionBoundary) {
     const stress = st.stressTone ? `Under pressure, their tone tilts toward ${st.stressTone.toLowerCase()}` : "";
     const decisions = st.decisionBoundary ? `and they usually decide ${st.decisionBoundary.toLowerCase()}` : "";
-    parts.push(`${stress}${stress && decisions ? ", " : ""}${decisions}. The Hub should respect those defaults but surface tradeoffs when stakes are high.`);
+    if (stress || decisions) {
+      parts.push(`${stress}${stress && decisions ? ", " : ""}${decisions}. The Hub should respect those defaults but surface tradeoffs when stakes are high.`);
+    }
   }
 
-  if (st.uniqueTouches.trim()) {
-    parts.push(`Their team would recognize them in how they ${st.uniqueTouches.trim()}. Keep those fingerprints in any language you suggest.`);
+  const textureBits = [];
+  if (st.favShows.trim()) textureBits.push(`They rewatch ${st.favShows.trim()} when they want story and pattern, not noise.`);
+  if (st.favBooks.trim()) textureBits.push(`They are pulled toward books like ${st.favBooks.trim()}, which says they learn through depth, not hot takes.`);
+  if (st.offDutyHabits.trim()) textureBits.push(`Off-duty, they tend to ${st.offDutyHabits.trim()}, which is usually how they reset their thinking.`);
+  if (textureBits.length) {
+    parts.push(textureBits.join(" "));
+  }
+
+  if (st.teamPhrases.trim() || st.uniqueTouches.trim()) {
+    const phrases = st.teamPhrases.trim();
+    const touches = st.uniqueTouches.trim();
+    let line = "Their team would recognize them instantly in how they talk and work";
+    if (phrases) line += ` — including phrases like ${phrases}`;
+    if (touches) line += ` and the way they ${touches}`;
+    line += ". Keep those fingerprints in any language you suggest.";
+    parts.push(line);
   }
 
   return parts.join(" ");
@@ -519,8 +517,7 @@ function genProfile() {
 
   t += `You are my personal Leadership Hub for work at Omada Health. I lead ${roleStr()}. Team: ${st.teamSize}.`;
   if (st.reportsTo) t += ` Report to: ${st.reportsTo}.`;
-  t += ` Make my management work easier, clearer, faster. Don't replace my judgment. I own every call.\n\n`;
-
+  t += ` Support my management work without overruling my judgment. I own every call.\n\n`;
 
   t += `OPERATING MODES (I will say which)\n`;
   t += `- Analyst: Patterns, risks, dynamics from what I paste. Output: core issue (1 line), key dynamics (3 bullets), blind spots (2-3 questions).\n`;
@@ -562,35 +559,7 @@ function genProfile() {
 }
 
 function canNext() {
-  const s=STEPS[step];
   return true;
-}
-
-function getHint() {
-  const s=STEPS[step];
-  if(s==="role"&&!st.name) return "Enter your name to continue";
-  if(s==="role"&&!st.func&&!st.funcCustom) return "Select your function";
-  if(s==="role"&&!st.teamSize) return "Select your team size";
-  if(s==="voice"&&st.voiceTraits.length<2) return `Pick at least 2 voice traits (${st.voiceTraits.length} selected)`;
-  if(s==="values"&&st.valuesSelected.length<1) return "Select at least 1 value to continue";
-  if(s==="focus"&&st.focusSelected.length<1) return "Select at least 1 focus area";
-  if(s==="defaults"&&!st.stressTone) return "Select your stress tone";
-  if(s==="defaults"&&!st.decisionBoundary) return "Select your decision style";
-  return null;
-}
-
-function fieldsDone() {
-  const s=STEPS[step];
-  if(s==="role") return (st.name?1:0)+(st.func||st.funcCustom?1:0)+(st.teamSize?1:0);
-  if(s==="voice") return (st.voiceTraits.length>=2?1:0)+(st.lengthPref?1:0);
-  if(s==="values") return st.valuesSelected.length>=1?1:0;
-  if(s==="focus") return st.focusSelected.length>=1?1:0;
-  if(s==="defaults") return (st.stressTone?1:0)+(st.decisionBoundary?1:0);
-  return 0;
-}
-
-function updateNav() {
-  const b=document.querySelector('.btn-next'); if(b) b.disabled=!canNext();
 }
 
 function reviewSection(title, stepIdx, content) {
@@ -619,7 +588,7 @@ function renderStep() {
       <p class="welcome-p">Create an AI assistant that knows how you lead, how you communicate, and what you care about. Once built, it drafts in your voice, preps your 1:1s, and helps you think through hard calls.</p>
       <div class="welcome-meta">
         <div class="welcome-meta-item"><div class="welcome-meta-num">~8</div><div class="welcome-meta-label">minutes</div></div>
-        <div class="welcome-meta-item"><div class="welcome-meta-num">8</div><div class="welcome-meta-label">guided steps</div></div>
+        <div class="welcome-meta-item"><div class="welcome-meta-num">9</div><div class="welcome-meta-label">guided steps</div></div>
         <div class="welcome-meta-item"><div class="welcome-meta-num">90%</div><div class="welcome-meta-label">click-to-select</div></div>
       </div>
       <div class="welcome-value">
@@ -638,7 +607,6 @@ function renderStep() {
     ${field("Team size","",chips(D.TEAMS,"teamSize",false,true),true)}
     ${field("Reports to","",chips(D.REPORTS,"reportsTo",false,true))}
     ${field("Additional context","Anything selections don't capture.",inp("roleCustom","e.g., Responsible for leadership dev, perf systems, org effectiveness"))}
-    ${!canNext()?valHint(getHint()):''}
     ${previewBtn()}`;
 
   if(s==="modes") return `
@@ -654,12 +622,10 @@ function renderStep() {
     ${field("Voice traits","Pick 2-6 that match how you actually communicate.",gchips(D.VOICE,"voiceTraits",true,true)+`<div class="custom-field">${inp("voiceCustom","Add custom traits (comma-separated)")}</div>`,true,COACH.voice_inline)}
     ${field("Length preference","",chips(D.LENGTH,"lengthPref",false,false))}
     ${field("Banned words","Words your Space should never use in drafts.",gchips(D.BANNED,"bannedWords",true,true)+`<div class="custom-field">${inp("bannedCustom","Add more (comma-separated)")}</div>`)}
-    ${!canNext()?valHint(getHint()):''}
     ${previewBtn()}`;
 
   if(s==="values") return `
     ${field("Leadership values","Your non-negotiables. Pick 2-5.",gchips(D.VALUES,"valuesSelected",true,true)+`<div class="custom-field">${inp("valuesCustom","Add custom values (comma-separated)")}</div>`,true,COACH.values_inline)}
-    ${!canNext()?valHint(getHint()):''}
     ${previewBtn()}`;
 
   if(s==="focus") return `
@@ -670,7 +636,6 @@ function renderStep() {
       true,
       COACH.focus_inline
     )}
-    ${!canNext()?valHint(getHint()):''}
     ${previewBtn()}`;
 
   if(s==="defaults") return `
@@ -679,7 +644,34 @@ function renderStep() {
     ${field("Conflict style","",chips(D.CONFLICT,"conflictStyle",false,false))}
     ${field("Output format","",chips(D.OUTPUT,"outputFormat",false,false))}
     ${field("Sensitivity rules","Topics needing special handling.",inp("sensitivityRules","e.g., Flag legal/HR implications on any performance-related draft"))}
-    ${!canNext()?valHint(getHint()):''}
+    ${previewBtn()}`;
+
+  if(s==="texture") return `
+    ${field(
+      "Shows & movies you rewatch",
+      "Titles plus a few words on what you like about them.",
+      area("favShows","e.g., Spotlight – investigation and quiet relentlessness; The West Wing – pace, dialogue, and value conflicts.",3,200),
+      false,
+      COACH.texture_inline
+    )}
+    ${field(
+      "Books, authors, or thinkers you return to",
+      "",
+      area("favBooks","e.g., Kahneman, Adichie, Baldwin, Schein – name who has actually shaped how you think.",3,200),
+      false
+    )}
+    ${field(
+      "Off-duty habits when you're tired but still curious",
+      "",
+      area("offDutyHabits","e.g., Read long articles, watch deep-dive videos, tinker on side projects, walk without headphones.",3,200),
+      false
+    )}
+    ${field(
+      "Phrases your team would say are \"yours\"",
+      "",
+      area("teamPhrases","e.g., \"Slow is smooth, smooth is fast\"; \"Say the quiet part out loud\"; \"What tradeoff are we making?\"",3,200),
+      false
+    )}
     ${previewBtn()}`;
 
   if(s==="unique") return `
@@ -688,7 +680,7 @@ function renderStep() {
       "",
       area(
         "uniqueTouches",
-        "e.g.,\n- How I open tough conversations\n- Phrases my team would recognize as mine\n- Rituals we use (standup, retro, offsites)\n- Things I never want softened or sanded down",
+        "e.g.,\n- How I open tough conversations\n- Rituals we use (standup, retro, offsites)\n- Things I never want softened or sanded down",
         5,
         400
       ),
@@ -727,7 +719,10 @@ function renderStep() {
       `<span class="tag">${esc(st.stressTone)}</span><span class="tag">${esc(st.decisionBoundary)}</span>`
       +(st.conflictStyle?`<span class="tag">${esc(st.conflictStyle)}</span>`:'')
     );
-    if(st.uniqueTouches.trim()) h += reviewSection("Your full self",7,`<span style="font-size:12px;color:#6b7280">${esc(st.uniqueTouches).substring(0,100)}${st.uniqueTouches.length>100?'...':''}</span>`);
+    if(st.favShows.trim() || st.favBooks.trim() || st.offDutyHabits.trim() || st.teamPhrases.trim()) {
+      h += reviewSection("Texture",7,`<span style="font-size:12px;color:#6b7280">${esc((st.favShows + " " + st.favBooks).trim()).substring(0,120)}${(st.favShows+st.favBooks).length>120?'...':''}</span>`);
+    }
+    if(st.uniqueTouches.trim()) h += reviewSection("Your full self",8,`<span style="font-size:12px;color:#6b7280">${esc(st.uniqueTouches).substring(0,100)}${st.uniqueTouches.length>100?'...':''}</span>`);
 
     h += `<div class="output-wrap">
       <button class="copy-btn" onclick="copyProfile()">Copy to clipboard</button>
@@ -756,17 +751,16 @@ function render() {
   let h='';
   if(step>0 && step<STEPS.length-1) {
     const[title,sub]=STEP_TITLES[s]||["",""];
-h+=`<div class="step-header">
-  <div class="step-title">${title}</div>
-  <div class="step-sub">${sub}</div>
-</div>`;
-
+    h+=`<div class="step-header">
+      <div class="step-title">${title}</div>
+      <div class="step-sub">${sub}</div>
+    </div>`;
   }
   h += renderStep();
   document.getElementById('card').innerHTML=h;
 
   document.getElementById('backWrap').innerHTML = step>0 ? `<button class="btn-back" onclick="nav(-1)">← Back</button>` : '';
-  document.getElementById('nextWrap').innerHTML = step<STEPS.length-1 ? `<button class="btn-next" onclick="nav(1)"${canNext()?'':' disabled'}>${step===0?'Get Started →':'Continue →'}</button>` : '';
+  document.getElementById('nextWrap').innerHTML = step<STEPS.length-1 ? `<button class="btn-next" onclick="nav(1)">${step===0?'Get Started →':'Continue →'}</button>` : '';
 }
 
 render();
