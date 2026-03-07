@@ -344,27 +344,25 @@ let st = {
 
 function esc(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 function safe(s) { return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function safe(s) {
+  return s.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
 
 function saveInputs() {
-  document.querySelectorAll('input[type="text"][oninput],textarea[oninput]').forEach(el => {
-    const m = el.getAttribute('oninput').match(/upd\('(\w+)'/);
-    if (m) st[m[1]] = el.value;
-  });
+  document
+    .querySelectorAll('input[type="text"][oninput],textarea[oninput]')
+    .forEach(el => {
+      const m = el.getAttribute('oninput').match(/upd\('(\w+)'/);
+      if (m) st[m[1]] = el.value;
+    });
 }
 
-function gchips(groups, key, multi, small) {
-  let h = '<div class="chips">';
-  groups.forEach(g => {
-    h += `<div class="chip-group-label">${esc(g.g)}</div>`;
-    const sel = multi ? (st[key]||[]) : [st[key]];
-    g.items.forEach(o => {
-      const on = sel.includes(o);
-      h += `<button class="chip${small?' sm':''}${on?' on':''}" onclick="toggle('${key}','${safe(o)}',${multi})">${esc(o)}</button>`;
-    });
-  });
-  h += '</div>';
-  return h;
-}
 
 function chips(opts, key, multi, small) {
   const sel = multi ? (st[key]||[]) : [st[key]];
