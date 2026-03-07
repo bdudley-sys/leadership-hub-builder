@@ -235,7 +235,7 @@ const STEP_TITLES = {
   values: ["Values", "Your non-negotiables"],
   focus: ["Focus Areas", "Where this Space helps most"],
   defaults: ["Personal Defaults", "Your patterns under pressure"],
-  texture: ["Texture", "What you rewatch and reach for"],
+  texture: ["Texture", "Shows, books, habits, and team phrases"],
   unique: ["Your Full Self", "Optional personalization"],
 };
 
@@ -337,13 +337,10 @@ let st = {
   stressTone:"", decisionBoundary:"", conflictStyle:"",
   outputFormat:"Bullets for action, narrative for context",
   sensitivityRules:"",
-  // texture
   favShows:"", favBooks:"", offDutyHabits:"", teamPhrases:"",
   uniqueTouches:"",
 };
 
-function esc(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
-function safe(s) { return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 function esc(s) {
   const d = document.createElement('div');
   d.textContent = s;
@@ -363,6 +360,19 @@ function saveInputs() {
     });
 }
 
+function gchips(groups, key, multi, small) {
+  let h = '<div class="chips">';
+  groups.forEach(g => {
+    h += `<div class="chip-group-label">${esc(g.g)}</div>`;
+    const sel = multi ? (st[key]||[]) : [st[key]];
+    g.items.forEach(o => {
+      const on = sel.includes(o);
+      h += `<button class="chip${small?' sm':''}${on?' on':''}" onclick="toggle('${key}','${safe(o)}',${multi})">${esc(o)}</button>`;
+    });
+  });
+  h += '</div>';
+  return h;
+}
 
 function chips(opts, key, multi, small) {
   const sel = multi ? (st[key]||[]) : [st[key]];
@@ -384,6 +394,7 @@ function field(label, sub, content, req, coach) {
 function inp(key, ph) {
   return `<input type="text" value="${esc(st[key])}" oninput="upd('${key}',this.value)" placeholder="${esc(ph)}">`;
 }
+
 function area(key, ph, rows, max) {
   return `<div style="position:relative"><textarea rows="${rows}" ${max?`maxlength="${max}"`:''} oninput="upd('${key}',this.value)" placeholder="${esc(ph)}">${esc(st[key])}</textarea>${max?`<span class="char-count">${(st[key]||'').length}/${max}</span>`:''}</div>`;
 }
@@ -453,41 +464,47 @@ function roleStr() {
 
 function genNarrative() {
   const parts = [];
+  const role = roleStr() || "a leadership role";
+  const team = st.teamSize ? ` with a ${st.teamSize} person team` : "";
+  const org = "at Omada Health";
 
-  if (st.name || st.func || st.scope || st.teamSize) {
-    const who = st.name ? `${st.name}` : "This leader";
-    const role = roleStr();
-    const team = st.teamSize ? ` and leads a team of ${st.teamSize}` : "";
-    parts.push(`${who} works at Omada Health, owns ${role}${team}, and wants this Hub to make the real management work lighter without dulling their judgment.`);
-  }
+  parts.push(`I work ${org} and lead ${role}${team}. I want this Hub to make the real management work lighter without dulling my judgment.`);
 
   const va = mergeList(st.voiceTraits, st.voiceCustom);
   if (va.length) {
-    parts.push(`Day to day, they tend to sound ${va.join(", ")} rather than polished or corporate, and they expect the Hub to match that.`);
+    parts.push(`Day to day, I tend to sound ${va.join(", ")} rather than polished or corporate, and I expect the Hub to match that.`);
   }
 
   const vl = mergeList(st.valuesSelected, st.valuesCustom);
   if (vl.length) {
-    parts.push(`When decisions get messy, they reliably favor ${vl.join(", ")} instead of easy consensus or vague alignment.`);
+    const main = vl.slice(0, 3).join(", ");
+    parts.push(`When decisions get messy, I reliably favor ${main} instead of easy consensus or vague alignment.`);
   }
 
   const fc = mergeList(st.focusSelected, st.focusCustom);
   if (fc.length) {
-    parts.push(`Most of their leadership time goes into ${fc.join(", ")}, so this Hub should be especially sharp there.`);
+    const main = fc.slice(0, 5).join(", ");
+    parts.push(`Most of my leadership time goes into ${main}, so this Hub should be especially sharp there.`);
   }
 
   if (st.stressTone || st.decisionBoundary) {
-    const stress = st.stressTone ? `Under pressure, their tone tilts toward ${st.stressTone.toLowerCase()}` : "";
-    const decisions = st.decisionBoundary ? `and they usually decide ${st.decisionBoundary.toLowerCase()}` : "";
+    const stress = st.stressTone ? `Under pressure, my tone tilts toward ${st.stressTone.toLowerCase()}` : "";
+    const decisions = st.decisionBoundary ? `and I usually decide ${st.decisionBoundary.toLowerCase()}` : "";
     if (stress || decisions) {
       parts.push(`${stress}${stress && decisions ? ", " : ""}${decisions}. The Hub should respect those defaults but surface tradeoffs when stakes are high.`);
     }
   }
 
   const textureBits = [];
-  if (st.favShows.trim()) textureBits.push(`They rewatch ${st.favShows.trim()} when they want story and pattern, not noise.`);
-  if (st.favBooks.trim()) textureBits.push(`They are pulled toward books like ${st.favBooks.trim()}, which says they learn through depth, not hot takes.`);
-  if (st.offDutyHabits.trim()) textureBits.push(`Off-duty, they tend to ${st.offDutyHabits.trim()}, which is usually how they reset their thinking.`);
+  if (st.favShows.trim()) {
+    textureBits.push(`I rewatch ${st.favShows.trim()} when I want story and pattern, not noise.`);
+  }
+  if (st.favBooks.trim()) {
+    textureBits.push(`I keep coming back to books and thinkers like ${st.favBooks.trim()}, which means depth matters more than hot takes.`);
+  }
+  if (st.offDutyHabits.trim()) {
+    textureBits.push(`Off‑duty, I reset by ${st.offDutyHabits.trim()}.`);
+  }
   if (textureBits.length) {
     parts.push(textureBits.join(" "));
   }
@@ -495,10 +512,10 @@ function genNarrative() {
   if (st.teamPhrases.trim() || st.uniqueTouches.trim()) {
     const phrases = st.teamPhrases.trim();
     const touches = st.uniqueTouches.trim();
-    let line = "Their team would recognize them instantly in how they talk and work";
-    if (phrases) line += ` — including phrases like ${phrases}`;
-    if (touches) line += ` and the way they ${touches}`;
-    line += ". Keep those fingerprints in any language you suggest.";
+    let line = `My team would recognize my voice instantly`;
+    if (phrases) line += ` in phrases like ${phrases}`;
+    if (touches) line += ` and in the way I ${touches}`;
+    line += `. Keep those fingerprints in any language you suggest.`;
     parts.push(line);
   }
 
@@ -514,7 +531,7 @@ function genProfile() {
   }
 
   t += `You are my personal Leadership Hub for work at Omada Health. I lead ${roleStr()}. Team: ${st.teamSize}.`;
-  if (st.reportsTo) t += ` Report to: ${st.reportsTo}.`;
+  if (st.reportsTo) t += ` I report to: ${st.reportsTo}.`;
   t += ` Support my management work without overruling my judgment. I own every call.\n\n`;
 
   t += `OPERATING MODES (I will say which)\n`;
