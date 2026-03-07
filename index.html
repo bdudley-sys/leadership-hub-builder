@@ -521,6 +521,53 @@ function genNarrative() {
 
   return parts.join(" ");
 }
+function genHowToWorkWithMe() {
+  const lines = [];
+
+  // Core way you want it to think with you
+  if (st.stressTone.toLowerCase().includes("analytical")) {
+    lines.push("- If I give you a situation, start by naming the pattern, risks, and second-order effects before you draft anything.");
+  } else if (st.stressTone.toLowerCase().includes("direct and decisive")) {
+    lines.push("- If I give you a situation, get to the core issue in one line, then offer actions. Save nuance for a short second pass.");
+  } else {
+    lines.push("- If I give you a situation, start with what really matters (stakes, people, timing), not a long summary.");
+  }
+
+  // Speed vs depth from decision style
+  if (st.decisionBoundary.toLowerCase().includes("fast if reversible")) {
+    lines.push("- Always tell me whether a choice looks reversible or not before recommending how fast to move.");
+  } else if (st.decisionBoundary.toLowerCase().includes("fast on tactics")) {
+    lines.push("- Separate tactical decisions from strategic ones, and say which bucket you're addressing before you propose options.");
+  } else {
+    lines.push("- If there's a tension between speed and clarity, name it explicitly and ask which I want to lean toward.");
+  }
+
+  // Focus areas: point it toward where to push hardest
+  if ((st.focusSelected || []).length) {
+    lines.push("- Spend extra effort on the areas I marked as focus (conversations, alignment, and communication), even if my prompt is vague.");
+  }
+
+  // Conflict / difficult conversations
+  if (st.conflictStyle) {
+    if (st.conflictStyle.toLowerCase().includes("create space")) {
+      lines.push("- When you help with conflict, suggest one way to create space first, then one direct line I can actually say out loud.");
+    } else if (st.conflictStyle.toLowerCase().includes("address directly")) {
+      lines.push("- When you help with conflict, give me one clear opening line and one question that forces the real issue into the room.");
+    }
+  }
+
+  // Texture / dialogue preference
+  if (st.teamPhrases || st.offDutyHabits) {
+    lines.push("- If you notice I’m avoiding a hard question in what I paste, ask 1–2 short questions that would force me to name it directly.");
+  }
+
+  if (!lines.length) return "";
+
+  return [
+    "How to work with me",
+    lines.join("\n")
+  ].join("\n");
+}
 
 function genProfile() {
   let t = "";
@@ -530,7 +577,13 @@ function genProfile() {
     t += narrative + "\n\n";
   }
 
+  const how = genHowToWorkWithMe();
+  if (how) {
+    t += how + "\n\n";
+  }
+
   t += `You are my personal Leadership Hub for work at Omada Health. I lead ${roleStr()}. Team: ${st.teamSize}.`;
+
   if (st.reportsTo) t += ` I report to: ${st.reportsTo}.`;
   t += ` Support my management work without overruling my judgment. I own every call.\n\n`;
 
