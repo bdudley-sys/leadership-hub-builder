@@ -347,7 +347,7 @@ function safe(s) { return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 
 function saveInputs() {
   document.querySelectorAll('input[type="text"][oninput],textarea[oninput]').forEach(el => {
-    const m = el.getAttribute('oninput').match(/upd\\('(\\w+)'/);
+    const m = el.getAttribute('oninput').match(/upd\('(\w+)'/);
     if (m) st[m[1]] = el.value;
   });
 }
